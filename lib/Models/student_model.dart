@@ -1,54 +1,57 @@
-import 'package:student_details/colletions/student_list.dart';
-import 'package:student_details/widgets/add_student.dart';
-import 'package:student_details/widgets/list_students.dart';
 
+
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:student_details/main.dart';
+
+ part 'student_model.g.dart'; 
+
+@HiveType(typeId: 0)
 class Student {
+
+  @HiveField(0)
+  int? hiveId;
+
+  @HiveField(1)
   final int id;
+
+  @HiveField(2)
   final String name;
+
+  @HiveField(3)
   final String age;
+
   Student({
     required this.id,
     required this.name,
     required this.age,
+    this.hiveId,
   });
 
-  addStudentData() {
-    idList.add(id);
-    nameList.add(name);
-    ageList.add(age);
-    listNotifier.value = nameList.length;
-    nameEditingController.text = "";
-    ageEditingController.text = "";
-  }
+  // addToBox(){
+  //   //
+  //   box.put('id', id);
+  //   box.put('name', name);
+  //   box.put('age', age);
+  // }
 
-  Map<String, dynamic> desplayListStudent(index) {
-    Map<String, dynamic> studentMap;
-    return studentMap = {
-      "roll": index + 1,
-      "id": idList[index],
-      "name": nameList[index],
-      "age": ageList[index],
-    };
-  }
+  // getFromBox(int index){
+  //   //
+  //   Map<String, dynamic> studentMap;
+  //   return studentMap = {
+  //     "roll": index + 1,
+  //     "id": box.get[index],
+  //     "name": box.get[index],
+  //     "age": box.get[index],
+  //   };
+  // }
 
-  deleteStudentData(int id) {
-    int position = idList.indexOf(id);
-    position != -1 ? removeData(position) : print("cannot delete, not find");
-    listNotifier.value = nameList.length;
-  }
+  // updateToBox(){
+  //   //
+  // }
 
-  removeData(position) {
-    idList.removeAt(position);
-    nameList.removeAt(position);
-    ageList.removeAt(position);
-  }
+  // deleteFromBox(){
+  //   //
+  // }
 
-  updateData() {
-    int position = idList.indexOf(id);
-    nameList[position] = name;
-    ageList[position] = age;
-    updateButtonNotifier.value = false;
-    listNotifier.value = nameList.length - 1;
-    listNotifier.value = nameList.length;
-  }
+ 
 }
