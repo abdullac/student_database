@@ -107,9 +107,11 @@ class AddStudent extends StatelessWidget {
         update(primaryIndex: hiveId, student: student);
       } else if (dataBaseType == DataBaseType.variable) {
         update(primaryIndex: id, student: student);
-      }if (dataBaseType == DataBaseType.sqFlight) {
+      }else if (dataBaseType == DataBaseType.sqFlight) {
         update(primaryIndex: sqfliteId, student: student);
-      } 
+      }else if(dataBaseType == DataBaseType.sharedPreference){
+        update(primaryIndex: id, student: student);
+      }
     }
     }else{
       print("student name or age is empty, please fill");

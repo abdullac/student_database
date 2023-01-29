@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_details/Models/data_base_types/hive_data_base.dart';
+import 'package:student_details/Models/data_base_types/sharedpreference_database.dart';
 import 'package:student_details/Models/data_base_types/sqflite_database.dart';
 import 'package:student_details/Models/data_base_types/variable_data_base.dart';
 import 'package:student_details/Models/student_model.dart';
@@ -28,10 +29,10 @@ enum DataBaseType {
 }
 
 //late DataBaseType dataBaseType;
-DataBaseType dataBaseType = DataBaseType.hive;
+DataBaseType dataBaseType = DataBaseType.sharedPreference;
 
 VariableDataBase variableDataBase = VariableDataBase();
-//SharedPreferenceDataBase sharedPreferenceDataBase = SharedPreferenceDataBase();
+SharedPreferenceDataBase sharedPreferenceDataBase = SharedPreferenceDataBase();
 HiveDataBase hiveDataBase = HiveDataBase();
 SqfliteDataBase sqflightDataBase = SqfliteDataBase();
 
@@ -39,7 +40,7 @@ add(Student student) {
   if (dataBaseType == DataBaseType.variable) {
     variableDataBase.addStudentToList(student);
   } else if (dataBaseType == DataBaseType.sharedPreference) {
-    //
+    sharedPreferenceDataBase.addStudentToShpref(student);
   }
   if (dataBaseType == DataBaseType.hive) {
     hiveDataBase.addStudentToBox(student);
@@ -54,7 +55,7 @@ getAll() {
   if (dataBaseType == DataBaseType.variable) {
     variableDataBase.getAllStudentsFromList();
   } else if (dataBaseType == DataBaseType.sharedPreference) {
-    //
+    sharedPreferenceDataBase.getAllStudentsFromShpref();
   }
   if (dataBaseType == DataBaseType.hive) {
     hiveDataBase.getAllStudentsFromBox();
@@ -69,7 +70,7 @@ update({required int primaryIndex, required Student student}) {
   if (dataBaseType == DataBaseType.variable) {
     variableDataBase.updateStudentToList(primaryIndex, student);
   } else if (dataBaseType == DataBaseType.sharedPreference) {
-    //
+    sharedPreferenceDataBase.updateStudentToShpref(student);
   }
   if (dataBaseType == DataBaseType.hive) {
     hiveDataBase.updateStudentToBox(primaryIndex, student);
@@ -85,7 +86,7 @@ delete(/*primaryIndex*/Student student) {
   if (dataBaseType == DataBaseType.variable) {
     variableDataBase.deleteStudentFromList(/*primaryIndex*/student.id);
   } else if (dataBaseType == DataBaseType.sharedPreference) {
-    //
+    sharedPreferenceDataBase.deleteStudentFromShpref(student.id);
   }
   if (dataBaseType == DataBaseType.hive) {
     hiveDataBase.deleteStudentFromBox(/*primaryIndex*/student.hiveId!);
