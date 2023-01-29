@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:student_details/Models/student_model.dart';
+import 'package:student_details/Models/data_base_types/hive_data_base.dart';
+import 'package:student_details/Models/data_base_types/sqflite_database.dart';
+import 'package:student_details/functions/crud.dart';
 import 'package:student_details/widgets/main_page.dart';
 
-
 main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
-  // initialize Hive
-  await Hive.initFlutter();
-
-  // register hive adapter (bridge)
-  if(!Hive.isAdapterRegistered(StudentAdapter().typeId)){
-    Hive.registerAdapter(StudentAdapter());
+  // initialize DataBase
+  if (dataBaseType == DataBaseType.hive) {
+    await HiveDataBase.initializeHiveAndAdapter();
+  } else if (dataBaseType == DataBaseType.sqFlight) {
+    await SqfliteDataBase.initializeSqflite();
+  } else if (dataBaseType == DataBaseType.sharedPreference) {
+    //
+  } else if (dataBaseType == DataBaseType.variable) {
+    //
+  } else {
+    print("you have not set database type");
   }
 
-    runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

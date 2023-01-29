@@ -3,9 +3,9 @@ import 'package:student_details/Models/student_model.dart';
 import 'package:student_details/functions/crud.dart';
 import 'package:student_details/widgets/add_student.dart';
 
-//bool updationData = false;
 int updateId = -1;
-var updateHiveId = -2;
+int updateHiveId = -2;
+int updateSqfliteId = -7;
 
 class ListStudents extends StatelessWidget {
   const ListStudents({
@@ -16,49 +16,29 @@ class ListStudents extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Student> studentList = studentListNotifier.value;
     return ValueListenableBuilder(
-      //valueListenable: listNotifier,
       valueListenable: studentListNotifier,
       builder: (BuildContext context, value, Widget? child) => Container(
         color: Colors.deepOrange[400],
         child: ListView.separated(
           itemBuilder: (BuildContext ctx, int index) {
             Student studentData = studentList[index];
-            // Crud student = Crud(
-            //   id: studentData.id,
-            //   name: studentData.name,
-            //   age: studentData.age,
-            // );
-            // Map studentData = student.desplayListStudent(index);
-            // student.getAllStudentsFromBox();
             return Container(
-              height: 50,
+              height: 55,
               color: Colors.indigo,
               child: ListTile(
                 leading: Text("${index + 1}"),
-                // title: Text(studentData["name"]),
-                // subtitle: Text("id: ${studentData["id"]}"),
                 title: Text(studentData.name),
                 subtitle: Text("${studentData.id}"),
                 trailing: SizedBox(
-                  width: 110,
+                  width: 130,
                   child: Row(
                     children: [
                       Text(
-                        // studentData["age"],
                         studentData.age,
                       ),
                       IconButton(
                         onPressed: () {
-                          // delete button action
-                          //// student.deleteStudentData(idList[index]);
-                          if (dataBaseType == DataBaseType.variable) {
-                            delete(index);
-                          } else if (dataBaseType == DataBaseType.hive) {
-                            int? hiveId = studentData.hiveId;
-                            if (hiveId != null) {
-                              delete(hiveId);
-                            }
-                          }
+                            delete(studentData);
                         },
                         icon: const Icon(
                           Icons.delete,
@@ -88,18 +68,13 @@ class ListStudents extends StatelessWidget {
   }
 
   passToAddStudentArea(index) {
-    print("wewewewe1");
     updateId = studentListNotifier.value[index].id;
-    print("wewewewe2");
-    print("updataId $updateId");
     nameEditingController.text = studentListNotifier.value[index].name;
-    print("wewewewe3");
     ageEditingController.text = studentListNotifier.value[index].age;
-    print("wewewewe4");
     if (dataBaseType == DataBaseType.hive) {
-    print("wewewewe5");
       updateHiveId = studentListNotifier.value[index].hiveId!;
-    print("wewewewe6");
+    }else if (dataBaseType == DataBaseType.sqFlight) {
+      updateSqfliteId = studentListNotifier.value[index].sqfliteId!;
     }
   }
 }

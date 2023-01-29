@@ -3,7 +3,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:student_details/crud.dart';
 import 'package:student_details/functions/crud.dart';
 import 'package:student_details/widgets/add_student.dart';
 import 'package:student_details/widgets/list_students.dart';
@@ -22,11 +21,11 @@ class MainPage extends StatelessWidget {
         child: Column(
           children: const [
             Expanded(
-              flex: 2,
+              flex: 4,
               child: AddStudent(),
             ),
             Expanded(
-              flex: 4,
+              flex: 2,
               child: ListStudents(),
             ),
           ],

@@ -86,6 +86,15 @@ class AddStudent extends StatelessWidget {
       }
      }else{
       hiveId = -3;
+     }int sqfliteId = -6;
+     if (dataBaseType == DataBaseType.sqFlight) {
+      if(updateButtonNotifier.value != true){
+        print("sqflite id will autaomatically add to hive database");
+      }else{
+        sqfliteId = updateSqfliteId;
+      }
+     }else{
+      sqfliteId = -5;
      }
     String name = nameEditingController.text;
     String age = ageEditingController.text;
@@ -98,7 +107,9 @@ class AddStudent extends StatelessWidget {
         update(primaryIndex: hiveId, student: student);
       } else if (dataBaseType == DataBaseType.variable) {
         update(primaryIndex: id, student: student);
-      }
+      }if (dataBaseType == DataBaseType.sqFlight) {
+        update(primaryIndex: sqfliteId, student: student);
+      } 
     }
     }else{
       print("student name or age is empty, please fill");

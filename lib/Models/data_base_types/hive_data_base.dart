@@ -9,11 +9,20 @@ String boxName = 'studentDB';
 class HiveDataBase {
   //Student? student;
   HiveDataBase(
-    //{this.student}
-    ) {
+      //{this.student}
+      ) {
     // if (student != null) {
     //   student = student!;
     // }
+  }
+
+  static Future<void> initializeHiveAndAdapter() async {
+    // initialize Hive
+    await Hive.initFlutter();
+    // register hive adapter (bridge)
+    if (!Hive.isAdapterRegistered(StudentAdapter().typeId)) {
+      Hive.registerAdapter(StudentAdapter());
+    }
   }
 
   addStudentToBox(Student student) async {
@@ -38,7 +47,6 @@ class HiveDataBase {
   updateStudentToBox(int hiveId, Student student) async {
     final studentDB = await Hive.openBox<Student>(boxName);
     studentListNotifier.value.clear();
-    print("update hiveId $hiveId");
     student.hiveId = updateHiveId;
     studentDB.put(hiveId, student);
     getAllStudentsFromBox();
@@ -48,7 +56,6 @@ class HiveDataBase {
   }
 
   deleteStudentFromBox(int hiveId) async {
-    print("hivee idd $hiveId");
     final studentDB = await Hive.openBox<Student>(boxName);
     studentDB.delete(hiveId);
     getAllStudentsFromBox();

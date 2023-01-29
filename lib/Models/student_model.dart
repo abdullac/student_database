@@ -1,12 +1,13 @@
 
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:student_details/main.dart';
 
  part 'student_model.g.dart'; 
 
 @HiveType(typeId: 0)
 class Student {
+
+  int? sqfliteId;
 
   @HiveField(0)
   int? hiveId;
@@ -25,33 +26,16 @@ class Student {
     required this.name,
     required this.age,
     this.hiveId,
+    this.sqfliteId,
   });
 
-  // addToBox(){
-  //   //
-  //   box.put('id', id);
-  //   box.put('name', name);
-  //   box.put('age', age);
-  // }
-
-  // getFromBox(int index){
-  //   //
-  //   Map<String, dynamic> studentMap;
-  //   return studentMap = {
-  //     "roll": index + 1,
-  //     "id": box.get[index],
-  //     "name": box.get[index],
-  //     "age": box.get[index],
-  //   };
-  // }
-
-  // updateToBox(){
-  //   //
-  // }
-
-  // deleteFromBox(){
-  //   //
-  // }
-
+  static Student fromMap(Map<String, Object?> map){
+    int sqfliteId = map["sqfliteid"] as int;
+    int id = map["id"] as int;
+    String name = map["name"] as String;
+    String age = map["age"]as String;  
+    return Student(sqfliteId: sqfliteId,id: id, name: name, age: age);
+  }
  
 }
+ 
